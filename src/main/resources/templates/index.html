@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta itemprop="name" content="登录">
+    <meta itemprop="description" content="登录">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="renderer" content="webkit" />
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>测试</title>
+    <script  src="./js/opencv.js" onload="onOpenCvReady();"></script>
+</head>
+<body>
+<form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" name="fileInput" id="fileInput">
+    <button type="submit">上传文件</button>
+</form>
+
+<script>
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // 阻止表单默认提交行为
+        var formData = new FormData(); // 创建一个 FormData 对象
+        // 将文件添加到 FormData 对象中
+        var fileInput = document.getElementById('fileInput');
+        formData.append('file', fileInput.files[0]);
+        // 发送文件上传请求
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/ocr/api/recognize2', true); // 指定上传文件的接口地址
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                console.log('文件上传成功');
+            } else {
+                console.error('文件上传失败');
+            }
+        };
+        xhr.send(formData);
+    });
+
+
+</script>
+</body>
+</html>
